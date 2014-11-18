@@ -20,4 +20,54 @@ class HomeController extends BaseController {
 		return View::make('hello');
 	}
 
+    public function doRegister()
+    {
+        $data = Input::all();
+
+        $rules = array(
+            'username'   => 'required|unique:users',
+            'password'   => 'required|min:6',
+        );
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->passes()) {
+            $data['password'] = Hash::make($data['password']);
+
+            $user = User::create($data);
+
+            return Response::json(array('success' => true));
+        } else {
+            return Response::json(array('success' => false));
+        }
+    }
+
+    public function getUserInfo()
+    {
+        $users = User::where('cracked', 0)->get();
+
+        $users_needed = array();
+        foreach ($users as $user) {
+            $users_needed[] = array(
+                'username' => $user->username,
+            );
+        }
+
+        $users = User::where('cracked', 1)->get();
+
+        $users_cracked = array();
+        foreach ($users as $user) {
+            $users_cracked[] = array(
+                'username' => $user->username,
+            );
+        }
+
+        $percentage = (int) (count($users) / User::count()) * 100;
+
+        return Response::json(array(
+            'users_cracked' => $users_cracked,
+            'users_needed'  => $users_needed,
+            'percentage'    => $percentage,
+        ));
+    }
 }

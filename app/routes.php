@@ -11,7 +11,26 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get(
+    '/',
+    array(
+        'uses' => 'HomeController@showWelcome',
+        'as'   => 'HomePage',
+    )
+);
+
+Route::get(
+    '/getinfo',
+    array(
+        'uses' => 'HomeController@getUserInfo',
+        'as'   => 'getInfo',
+    )
+);
+
+Route::post(
+    '/doRegister',
+    array(
+        'uses' => 'HomeController@doRegister',
+        'as'   => 'doRegister',
+    )
+);
