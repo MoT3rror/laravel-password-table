@@ -41,19 +41,24 @@ class HashTableGenerator extends Command {
 
         if (!file_exists($file)) {
             $this->error('File does not exist in dict_table folder');
+            exit;
         }
 
         $handle = fopen($file, 'r');
         if (!$handle) {
             $this->error('File handle could not be open.');
+            exit;
         }
         $count = 1;
+        $hashes = array();
         while (($buffer = fgets($handle, 4096)) !== false) {
-            $hash = new HashDB;
-            $hash->password = $buffer;
-            $hash->hash_string = Hash::make($buffer);
-            $hash->save();
+            $hashes[] = array(
+                'password'    => $buffer,
+                'hash_string' => Hash::make($buffer),
+            );
             if (($count % 1000) == 1) {
+                HashDB::insert($hashes);
+                $hashes = array();
                 $this->info($count . ' hashes been created');
             }
             $count++;
