@@ -11,3 +11,6 @@
 |
 */
 
+Artisan::add(new HashTableGenerator);
+
+Artisan::add(new HashTableChecker);

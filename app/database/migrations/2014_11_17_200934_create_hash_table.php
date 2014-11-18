@@ -17,7 +17,7 @@ class CreateHashTable extends Migration {
 			$table->increments('id');
 
             $table->string('password');
-            $table->string('hash');
+            $table->string('hash_string');
             
 			$table->timestamps();
 		});

@@ -62,7 +62,7 @@ class HomeController extends BaseController {
             );
         }
 
-        $percentage = (int) (count($users) / User::count()) * 100;
+        $percentage = (int) ((count($users) / User::count()) * 100);
 
         return Response::json(array(
             'users_cracked' => $users_cracked,
