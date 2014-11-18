@@ -58,6 +58,9 @@ class HashTableGenerator extends Command {
             );
             if (($count % 1000) == 1) {
                 HashDB::insert($hashes);
+
+                // clear data
+                Cache::flush();
                 $hashes = array();
                 $this->info($count . ' hashes been created');
             }
