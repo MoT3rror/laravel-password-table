@@ -56,7 +56,7 @@ class HashTableGenerator extends Command {
         while (($buffer = fgets($handle, 4096)) !== false) {
             $hashes[] = array(
                 'password'    => $buffer,
-                'hash_string' => Hash::make($buffer),
+                'hash_string' => Hash::make(trim($buffer)),
             );
             if (($count % 1000) == 1) {
                 HashDB::insert($hashes);
