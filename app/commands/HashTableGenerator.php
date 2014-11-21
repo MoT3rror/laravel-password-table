@@ -37,7 +37,9 @@ class HashTableGenerator extends Command {
 	 */
 	public function fire()
 	{
-		$file = base_path() . '/dict-table/' . $this->argument('file');
+		DB::disableQueryLog();
+
+        $file = base_path() . '/dict-table/' . $this->argument('file');
 
         if (!file_exists($file)) {
             $this->error('File does not exist in dict_table folder');
@@ -62,7 +64,6 @@ class HashTableGenerator extends Command {
                 // clear data
                 Cache::flush();
                 $hashes = array();
-                $count = 1;
             }
             $count++;
         }
@@ -89,6 +90,7 @@ class HashTableGenerator extends Command {
 	protected function getOptions()
 	{
 		return array(
+            array('line_number')
 		);
 	}
 }
