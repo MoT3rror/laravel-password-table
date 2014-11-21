@@ -25,8 +25,8 @@ class HomeController extends BaseController {
         $data = Input::all();
 
         $rules = array(
-            'username'   => 'required|unique:users',
-            'password'   => 'required|min:6',
+            'username'   => 'required',
+            'password'   => 'required',
         );
 
         $validator = Validator::make($data, $rules);
