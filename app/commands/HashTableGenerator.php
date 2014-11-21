@@ -62,7 +62,7 @@ class HashTableGenerator extends Command {
                 // clear data
                 Cache::flush();
                 $hashes = array();
-                $this->info($count . ' hashes been created');
+                $count = 1;
             }
             $count++;
         }
